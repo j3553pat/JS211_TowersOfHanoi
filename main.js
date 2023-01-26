@@ -41,13 +41,15 @@ const isLegal = (startStack, endStack) => {
   // Your code here
   if (stacks[endStack].length == 0) {
     return true;
-  } else if (stacks[startStack].length - 1 > stacks[endStack].length - 1) {
-    console.log("THis is an ilegal move. Try again");
-    return false;
+  } else if (stacks[startStack].at(-1) > stacks[endStack].at(-1)) {
+    console.log("This is an illegal move.");
+    return false
   } else {
     return true;
   }
 };
+
+
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
@@ -66,6 +68,7 @@ const towersOfHanoi = (startStack, endStack) => {
   if (isLegal(startStack, endStack)) {
     movePiece(startStack, endStack);
   }
+  checkForWin()
 };
 
 const getPrompt = () => {
@@ -87,17 +90,25 @@ if (typeof describe === "function") {
       assert.deepEqual(stacks, { a: [4, 3, 2], b: [1], c: [] });
     });
   });
-
   describe("#isLegal()", () => {
-    it("should not allow an illegal move", () => {
+    it("should not allow an illegal move (A)", () => {
       stacks = {
         a: [4, 3, 2],
         b: [1],
         c: [],
       };
       assert.equal(isLegal("a", "b"), false);
+    })
+    // test 1
+    it("should not allow an illegal move (B)", () => {
+      stacks = {
+        a: [4, 3],
+        b: [],
+        c: [1, 2],
+      };
+      assert.equal(isLegal("a", "c"), false);
     });
-    it("should allow a legal move", () => {
+    it("should allow a legal move(A)", () => {
       stacks = {
         a: [4, 3, 2, 1],
         b: [],
@@ -105,12 +116,29 @@ if (typeof describe === "function") {
       };
       assert.equal(isLegal("a", "c"), true);
     });
+    //test 2
+    it("should allow a legal move(B)", () => {
+      stacks = {
+        a: [4, 3, 2],
+        b: [1],
+        c: [ ],
+      };
+      assert.equal(isLegal("a","c"), true);
+    });
   });
   describe("#checkForWin()", () => {
-    it("should detect a win", () => {
+    it("should detect a win(A)", () => {
       stacks = { a: [], b: [4, 3, 2, 1], c: [] };
       assert.equal(checkForWin(), true);
       stacks = { a: [1], b: [4, 3, 2], c: [] };
+      assert.equal(checkForWin(), false);
+
+    });
+    //test 3
+    it("should detect a win(B)", () => {
+      stacks = { a: [], b: [4, 3, 2], c: [1] };
+      assert.equal(checkForWin(), false);
+      stacks = { a: [3, 2], b: [4], c: [1] };
       assert.equal(checkForWin(), false);
     });
   });
