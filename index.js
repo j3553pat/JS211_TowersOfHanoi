@@ -7,13 +7,17 @@
 // * Why are you get a warning in your console? Fix it.
 // * Delete these comment lines!
 
-const stone = null
+const stone = document.querySelectorAll('.stone')
+const rows = document.querySelectorAll("row")
+
+stone.addEventListener('dragStart',() => {
+    console.log("Stone is getting dragged")
+  })
 
 // this function is called when a row is clicked. 
 // Open your inspector tool to see what is being captured and can be used.
 const selectRow = (row) => {
   const currentRow = row.getAttribute("data-row")
-  
   console.log("Yay, we clicked an item", row)
   console.log("Here is the stone's id: ", row.id)
   console.log("Here is the stone's data-size: ", currentRow)
@@ -38,5 +42,7 @@ const dropStone = (rowID, stone) => {
   stone = null
 }
 
+const winningGame = () => {
+}
 // * Remember you can use your logic from 'main.js' to maintain the rules of the game. But how? Follow the flow of data just like falling dominoes.
 
