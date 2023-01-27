@@ -9,6 +9,9 @@
 
 const stones = document.querySelectorAll('.stone')
 const rows = document.querySelectorAll(".row")
+
+
+
 stones.forEach(stone => {
   stone.addEventListener('dragstart', () => {
     stone.classList.add('dragging')
@@ -20,23 +23,33 @@ stones.forEach(stone => {
   })
 })
 
+const checkForWin =() => {
+  if(rows === 4 || rows === 4) {
+  console.log("You Win!")
+  }
+}
+
 rows.forEach(row => {
   row.addEventListener('dragover', (e) => {
     const stone = document.querySelector('.dragging')
     e.preventDefault()
-    row.appendChild(stone)
+    if(isLegal(stone, row)) {
+      row.appendChild(stone)
     console.log("the stone is being moved")
+  }
   })
+ checkForWin()
 })
 
-const isLegal = (stones) => {
-  // Your code here
-  if (stones.length == 0) {
-    return true;
-  } else if (stones.at(-1) > stones.at(-1)) {
-    console.log("This is an illegal move.");
-    return false
+const isLegal = (stone, row) => {
+  if (row.children.length > 0) {
+    console.log("row's children", row.children)
+  if(row.lastElementChild.dataset.size > stone.dataset.size) {
+    return true
   } else {
-    return true;
+    return false
   }
+} else {
+  return true
+}
 };
