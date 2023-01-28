@@ -23,9 +23,12 @@ stones.forEach(stone => {
   })
 })
 
-const checkForWin =() => {
-  if(rows === 4 || rows === 4) {
-  console.log("You Win!")
+const checkForLegalMove =(rows, stones) => {
+  if(rows === stones) {
+  console.log("Great Job!")
+   return true 
+  } else {
+    return false
   }
 }
 
@@ -38,13 +41,12 @@ rows.forEach(row => {
     console.log("the stone is being moved")
   }
   })
- checkForWin()
 })
 
 const isLegal = (stone, row) => {
   if (row.children.length > 0) {
-    console.log("row's children", row.children)
   if(row.lastElementChild.dataset.size > stone.dataset.size) {
+    checkForLegalMove()
     return true
   } else {
     return false
@@ -53,3 +55,13 @@ const isLegal = (stone, row) => {
   return true
 }
 };
+
+
+const alertWinner = (row, stone) => {
+  if (row.lastElementChild.dataset.size === stone.dataset.size) {
+      alert("YOU WIN!!!")
+      return true
+    } else {
+      return false
+    }
+  }
