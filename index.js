@@ -38,6 +38,7 @@ rows.forEach(row => {
     e.preventDefault()
     if(isLegal(stone, row)) {
       row.appendChild(stone)
+      alertWinner(row, stone)
     console.log("the stone is being moved")
   }
   })
@@ -58,10 +59,9 @@ const isLegal = (stone, row) => {
 
 
 const alertWinner = (row, stone) => {
-  if (row.lastElementChild.dataset.size === stone.dataset.size) {
-      alert("YOU WIN!!!")
-      return true
-    } else {
-      return false
-    }
+  console.log(row,stone)
+  console.log(row.childElementCount)
+  if(document.getElementById("middle-row").childElementCount === 4 || document.getElementById("top-row").childElementCount === 4) {
+    alert("You Win!!!!")
   }
+   }
